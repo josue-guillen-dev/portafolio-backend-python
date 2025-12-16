@@ -78,7 +78,7 @@ def crear_posts_usuario(user_id: int, posts: PostCrear):
 def ver_user_post(user_id: int):
     conexion = sqlite3.connect("blog.db")
     cursor = conexion.cursor()
-    cursor.execute("SELECT * FROM usuarios WHERE id = ?", (user_id,))
+    cursor.execute("SELECT * FROM usuarios WHERE user_id = ?", (user_id,))
     usuario = cursor.fetchone()
 
     if usuario is None:
