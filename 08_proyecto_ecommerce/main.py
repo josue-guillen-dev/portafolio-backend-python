@@ -1,15 +1,25 @@
 from fastapi import FastAPI, Depends, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
-
-# Importamos NUESTROS módulos
 import models, schemas, auth
 from database import engine, get_db
+
+
 
 # 1. Crear las tablas automáticamente
 # Esta línea le dice a SQL: "Mira el archivo models.py y crea todas esas tablas"
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+
+# Permitir que cualquier pagina web hable con tu API
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], # * significa "todos"
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.get("/")
